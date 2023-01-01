@@ -366,7 +366,7 @@ run_mtp() {
             workerman=$(get_cpu_core)
             tag_arg=""
             [[ -n "$proxy_tag" ]] && tag_arg="-P $proxy_tag"
-            ./mtproto-proxy -u nobody -p $web_port -H $port -S $secret --aes-pwd proxy-secret proxy-multi.conf -M $workerman $tag_arg --domain $domain $nat_info >/dev/null 2>&1 &    
+            ./mtproto-proxy -u a99 -p $web_port -H $port -S $secret --aes-pwd proxy-secret proxy-multi.conf -M $workerman $tag_arg --domain $domain $nat_info >/dev/null 2>&1 &    
         fi
 
         echo $! >$pid_file
@@ -392,8 +392,8 @@ debug_mtp() {
         echo " ./mtg run $client_secret $proxy_tag -b 0.0.0.0:$port --multiplex-per-connection 500"
         ./mtg run $client_secret $proxy_tag -b 0.0.0.0:$port --multiplex-per-connection 500
     else
-        echo " ./mtproto-proxy -u nobody -p $web_port -H $port -S $secret --aes-pwd proxy-secret proxy-multi.conf -M $workerman $tag_arg --domain $domain $nat_info"
-        ./mtproto-proxy -u nobody -p $web_port -H $port -S $secret --aes-pwd proxy-secret proxy-multi.conf -M $workerman $tag_arg --domain $domain $nat_info
+        echo " ./mtproto-proxy -u a99 -p $web_port -H $port -S $secret --aes-pwd proxy-secret proxy-multi.conf -M $workerman $tag_arg --domain $domain $nat_info"
+        ./mtproto-proxy -u a99 -p $web_port -H $port -S $secret --aes-pwd proxy-secret proxy-multi.conf -M $workerman $tag_arg --domain $domain $nat_info
     fi
     
 }
