@@ -220,7 +220,7 @@ config_mtp() {
     cd $WORKDIR
     echo -e "检测到您的配置文件不存在, 为您指引生成!" && print_line
     while true; do
-        default_port=443
+        default_port=2244
        # echo -e "请输入一个客户端连接端口 [1-65535]"
        # read -p "(默认端口: ${default_port}):" input_port
         [ -z "${input_port}" ] && input_port=${default_port}
