@@ -220,9 +220,9 @@ config_mtp() {
     cd $WORKDIR
     echo -e "检测到您的配置文件不存在, 为您指引生成!" && print_line
     while true; do
-        default_port=443
-        echo -e "请输入一个客户端连接端口 [1-65535]"
-        read -p "(默认端口: ${default_port}):" input_port
+        default_port=2244
+      #  echo -e "请输入一个客户端连接端口 [1-65535]"
+      #  read -p "(默认端口: ${default_port}):" input_port
         [ -z "${input_port}" ] && input_port=${default_port}
         expr ${input_port} + 1 &>/dev/null
         if [ $? -eq 0 ]; then
@@ -241,8 +241,8 @@ config_mtp() {
     # 管理端口
     while true; do
         default_manage=8888
-        echo -e "请输入一个管理端口 [1-65535]"
-        read -p "(默认端口: ${default_manage}):" input_manage_port
+      #  echo -e "请输入一个管理端口 [1-65535]"
+      #  read -p "(默认端口: ${default_manage}):" input_manage_port
         [ -z "${input_manage_port}" ] && input_manage_port=${default_manage}
         expr ${input_manage_port} + 1 &>/dev/null
         if [ $? -eq 0 ] && [ $input_manage_port -ne $input_port ]; then
@@ -261,8 +261,8 @@ config_mtp() {
     # domain
     while true; do
         default_domain="azure.microsoft.com"
-        echo -e "请输入一个需要伪装的域名："
-        read -p "(默认域名: ${default_domain}):" input_domain
+      #  echo -e "请输入一个需要伪装的域名："
+      #  read -p "(默认域名: ${default_domain}):" input_domain
         [ -z "${input_domain}" ] && input_domain=${default_domain}
         http_code=$(curl -I -m 10 -o /dev/null -s -w %{http_code} $input_domain)
         if [ $http_code -eq "200" ] || [ $http_code -eq "302" ] || [ $http_code -eq "301" ]; then
@@ -282,13 +282,13 @@ config_mtp() {
 
     # proxy tag
     while true; do
-        default_tag=""
-        echo -e "请输入你需要推广的TAG："
-        echo -e "若没有,请联系 @MTProxybot 进一步创建你的TAG, 可能需要信息如下："
-        echo -e "IP: ${public_ip}"
-        echo -e "PORT: ${input_port}"
-        echo -e "SECRET(可以随便填): ${secret}"
-        read -p "(留空则跳过):" input_tag
+     #   default_tag=""
+     #   echo -e "请输入你需要推广的TAG："
+     #   echo -e "若没有,请联系 @MTProxybot 进一步创建你的TAG, 可能需要信息如下："
+     #   echo -e "IP: ${public_ip}"
+     #   echo -e "PORT: ${input_port}"
+     #   echo -e "SECRET(可以随便填): ${secret}"
+     #   read -p "(留空则跳过):" input_tag
         [ -z "${input_tag}" ] && input_tag=${default_tag}
         if [ -z "$input_tag" ] || [[ "$input_tag" =~ ^[A-Za-z0-9]{32}$ ]]; then
             echo
