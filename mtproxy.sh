@@ -221,17 +221,17 @@ config_mtp() {
     echo -e "检测到您的配置文件不存在, 为您指引生成!" && print_line
     while true; do
         default_port=443
-        echo -e "请输入一个客户端连接端口 [1-65535]"
+       # echo -e "请输入一个客户端连接端口 [1-65535]"
        # read -p "(默认端口: ${default_port}):" input_port
         [ -z "${input_port}" ] && input_port=${default_port}
         expr ${input_port} + 1 &>/dev/null
         if [ $? -eq 0 ]; then
             if [ ${input_port} -ge 1 ] && [ ${input_port} -le 65535 ] && [ ${input_port:0:1} != 0 ]; then
-                echo
-                echo "---------------------------"
-                echo "port = ${input_port}"
-                echo "---------------------------"
-                echo
+           #     echo
+           #     echo "---------------------------"
+           #    echo "port = ${input_port}"
+           #     echo "---------------------------"
+           #     echo
                 break
             fi
         fi
@@ -241,17 +241,17 @@ config_mtp() {
     # 管理端口
     while true; do
         default_manage=8888
-        echo -e "请输入一个管理端口 [1-65535]"
+       # echo -e "请输入一个管理端口 [1-65535]"
        # read -p "(默认端口: ${default_manage}):" input_manage_port
         [ -z "${input_manage_port}" ] && input_manage_port=${default_manage}
         expr ${input_manage_port} + 1 &>/dev/null
         if [ $? -eq 0 ] && [ $input_manage_port -ne $input_port ]; then
             if [ ${input_manage_port} -ge 1 ] && [ ${input_manage_port} -le 65535 ] && [ ${input_manage_port:0:1} != 0 ]; then
-                echo
-                echo "---------------------------"
-                echo "manage port = ${input_manage_port}"
-                echo "---------------------------"
-                echo
+            #    echo
+            #    echo "---------------------------"
+            #    echo "manage port = ${input_manage_port}"
+            #    echo "---------------------------"
+            #    echo
                 break
             fi
         fi
@@ -261,16 +261,16 @@ config_mtp() {
     # domain
     while true; do
         default_domain="azure.microsoft.com"
-        echo -e "请输入一个需要伪装的域名："
+       # echo -e "请输入一个需要伪装的域名："
        # read -p "(默认域名: ${default_domain}):" input_domain
         [ -z "${input_domain}" ] && input_domain=${default_domain}
         http_code=$(curl -I -m 10 -o /dev/null -s -w %{http_code} $input_domain)
         if [ $http_code -eq "200" ] || [ $http_code -eq "302" ] || [ $http_code -eq "301" ]; then
-            echo
-            echo "---------------------------"
+          #  echo
+          #  echo "---------------------------"
             echo "伪装域名 = ${input_domain}"
-            echo "---------------------------"
-            echo
+          #  echo "---------------------------"
+          #  echo
             break
         fi
         echo -e "[\033[33m状态码：${http_code}错误\033[0m] 域名无法访问,请重新输入或更换域名!"
@@ -283,19 +283,19 @@ config_mtp() {
     # proxy tag
     while true; do
         default_tag=""
-        echo -e "请输入你需要推广的TAG："
-        echo -e "若没有,请联系 @MTProxybot 进一步创建你的TAG, 可能需要信息如下："
+       # echo -e "请输入你需要推广的TAG："
+       # echo -e "若没有,请联系 @MTProxybot 进一步创建你的TAG, 可能需要信息如下："
         echo -e "IP: ${public_ip}"
         echo -e "PORT: ${input_port}"
-        echo -e "SECRET(可以随便填): ${secret}"
+        echo -e "SECRET: ${secret}"
        # read -p "(留空则跳过):" input_tag
         [ -z "${input_tag}" ] && input_tag=${default_tag}
         if [ -z "$input_tag" ] || [[ "$input_tag" =~ ^[A-Za-z0-9]{32}$ ]]; then
             echo
             echo "---------------------------"
-            echo "PROXY TAG = ${input_tag}"
-            echo "---------------------------"
-            echo
+         #   echo "PROXY TAG = ${input_tag}"
+         #   echo "---------------------------"
+         #   echo
             break
         fi
         echo -e "[\033[33m错误\033[0m] TAG格式不正确!"
@@ -333,13 +333,13 @@ info_mtp() {
         client_secret="ee${secret}${domain_hex}"
         echo -e "TMProxy+TLS代理: \033[32m运行中\033[0m"
         
-        
+        echo
         echo -e "\033[31m$public_ip\033[0m"
         echo -e "\033[31m$port\033[0m"
         echo -e "\033[31m$client_secret\033[0m"
         
         
-        echo -e "TG一键链接: https://t.me/proxy?server=${public_ip}&port=${port}&secret=${client_secret}"
+        echo -e "https://t.me/proxy?server=${public_ip}&port=${port}&secret=${client_secret}"
  #       echo -e "TG一键链接: tg://proxy?server=${public_ip}&port=${port}&secret=${client_secret}"
  
     else
@@ -483,14 +483,14 @@ else
         print_line
         info_mtp
         print_line
-        echo -e "脚本源码：https://github.com/ellermister/mtproxy"
+     #   echo -e "脚本源码：https://github.com/ellermister/mtproxy"
         echo -e "配置文件: $WORKDIR/mtp_config"
         echo -e "卸载方式：直接删除当前目录下文件即可"
         echo "使用方式:"
-        echo -e "\t启动服务 bash $0 start"
-        echo -e "\t调试运行 bash $0 debug"
-        echo -e "\t停止服务 bash $0 stop"
-        echo -e "\t重启服务 bash $0 restart"
-        echo -e "\t修复常见问题 bash $0 fix"
+        echo -e "\t启动服务 bash /home/mtproxy/mtproxy.sh start"
+        echo -e "\t调试运行 bash /home/mtproxy/mtproxy.sh debug"
+        echo -e "\t停止服务 bash /home/mtproxy/mtproxy.sh stop"
+        echo -e "\t重启服务 bash /home/mtproxy/mtproxy.sh restart"
+        echo -e "\t修复常见问题 bash /home/mtproxy/mtproxy.sh fix"
     fi
 fi
